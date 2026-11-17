@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 
 import '../data/travel_data.dart';
+import '../screens/continent_map_screen.dart';
+import '../screens/home_screen.dart';
 import '../screens/my_countries_screen.dart';
-import '../utils/app_theme.dart';
 import '../widgets/app_bottom_nav.dart';
 
 /// Alt menüyü ve üç sekmeyi (World, Continents, My Countries) tutan ana ekran.
@@ -21,8 +22,7 @@ class MainShell extends StatefulWidget {
 }
 
 class _MainShellState extends State<MainShell> {
-  // World ekranı henüz hazır olmadığı için şimdilik My Countries ile açılıyor.
-  int _tabIndex = AppBottomNav.myCountriesTab;
+  int _tabIndex = AppBottomNav.worldTab;
 
   @override
   void initState() {
@@ -55,9 +55,14 @@ class _MainShellState extends State<MainShell> {
       body: IndexedStack(
         index: _tabIndex,
         children: [
-          // Screen 1 ve Screen 3 sonraki aşamada eklenecek.
-          const _ComingSoonTab(title: 'World Map', icon: Icons.public),
-          const _ComingSoonTab(title: 'Continents', icon: Icons.map_outlined),
+          HomeScreen(
+            travelData: widget.travelData,
+            onTabSelected: _selectTab,
+          ),
+          ContinentMapScreen(
+            travelData: widget.travelData,
+            onTabSelected: _selectTab,
+          ),
           MyCountriesScreen(
             travelData: widget.travelData,
             onTabSelected: _selectTab,
@@ -67,40 +72,6 @@ class _MainShellState extends State<MainShell> {
       bottomNavigationBar: AppBottomNav(
         currentIndex: _tabIndex,
         onTap: _selectTab,
-      ),
-    );
-  }
-}
-
-/// Henüz eklenmemiş sekmeler için geçici ekran.
-class _ComingSoonTab extends StatelessWidget {
-  final String title;
-  final IconData icon;
-
-  const _ComingSoonTab({required this.title, required this.icon});
-
-  @override
-  Widget build(BuildContext context) {
-    return Center(
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Icon(icon, size: 48, color: AppColors.textMuted),
-          const SizedBox(height: 12),
-          Text(
-            title,
-            style: const TextStyle(
-              fontSize: 20,
-              fontWeight: FontWeight.bold,
-              color: AppColors.textDark,
-            ),
-          ),
-          const SizedBox(height: 4),
-          const Text(
-            'Coming in the next step.',
-            style: TextStyle(color: AppColors.textMuted),
-          ),
-        ],
       ),
     );
   }

@@ -31,7 +31,7 @@ class EarthmarkApp extends StatelessWidget {
       title: 'Earthmark',
       debugShowCheckedModeBanner: false,
       theme: AppTheme.light,
-      // Açılış: alt menülü ana ekran.
+      // Açılış: alt menülü ana ekran, ilk sekme World (Screen 1).
       home: MainShell(travelData: travelData),
     );
   }
