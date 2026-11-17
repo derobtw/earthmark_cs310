@@ -14,11 +14,8 @@ Future<void> main() async {
   // Cihazda daha önce kaydedilmiş ülkeleri oku (ilk açılışta liste boş gelir).
   await travelData.loadFromDevice();
 
-  // Bu aşamada Add Country ekranı henüz yok; My Countries'i denemek için
-  // cihazda kayıt yoksa örnek veri (7 Been, 5 Wish) yükleniyor.
-  if (travelData.totalCount == 0) {
-    travelData.loadSampleData();
-  }
+  // Örnek veriyle (7 Been, 5 Wish) test etmek için alttaki satırı aç:
+  // travelData.loadSampleData();
 
   runApp(EarthmarkApp(travelData: travelData));
 }
